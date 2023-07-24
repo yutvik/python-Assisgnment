@@ -1,0 +1,44 @@
+{% extends 'header_footer.html' %} {% block content %}{% load static %}
+
+<!-- 
+Body Section 
+-->
+	<div class="row">
+	<div class="span9">
+    <ul class="breadcrumb">
+		<li><a href="index.html">Home</a> <span class="divider">/</span></li>
+		<li class="active">OTP VERIFICATION</li>
+    </ul>
+	<h3>otp verfiy</h3>	
+	<hr class="soft"/>
+	<div class="well">
+	<form class="form-horizontal" action="{% url 'otp' %}" method="post">
+		{% csrf_token %} 
+		<h3>Your Personal Details</h3>
+		{{msg}}
+		
+		</div>
+		<div class="control-group">
+			<label class="control-label" for="inputFname">OTP <sup>*</sup></label>
+			<div class="controls">
+			  <input type="text" name="OTP" id="inputFname" placeholder="ENTER OTP">
+			</div>
+		
+	  </div>
+	<div class="control-group">
+		<div class="controls">
+		 <input type="submit" name="submitAccount" value="VERIFY" exclusive shopBtn>
+		</div>
+	</div>
+	</form>
+</div>
+
+
+
+
+</div>
+</div>
+
+
+
+{% endblock %}

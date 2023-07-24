@@ -1,0 +1,114 @@
+{% extends 'seller_header_footer.html' %} {% load static %} {% block content %} 
+
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+* {
+  box-sizing: border-box;
+}
+
+#myInput {
+  background-image: url('/css/searchicon.png');
+  background-position: 10px 10px;
+  background-repeat: no-repeat;
+  width: 100%;
+  font-size: 16px;
+  padding: 12px 20px 12px 40px;
+  border: 1px solid #ddd;
+  margin-bottom: 12px;
+}
+
+#myTable {
+  border-collapse: collapse;
+  width: 100%;
+  border: 1px solid #ddd;
+  font-size: 18px;
+}
+
+#myTable th, #myTable td {
+  text-align: left;
+  padding: 12px;
+}
+
+#myTable tr {
+  border-bottom: 1px solid #ddd;
+}
+
+#myTable tr.header, #myTable tr:hover {
+  background-color: #f1f1f1;
+}
+
+.b1 {
+    padding: 5px 10px 5px 10px;
+    background-color: black;
+    color: white;
+    border-color: white;
+    border-radius: 5px;
+}
+
+</style>
+</head>
+<body>
+
+<h2 style="margin: 10px;">Orders</h2>
+
+{% comment %} <form action="{% url 'order_search' %}" method="post"> {% endcomment %}
+  {% csrf_token %}
+  {{msg}}
+<input type="text" id="myInput" placeholder="Search for names.." title="Type in a name" name="O_Search">
+</form>
+
+
+<table id="myTable">
+  <tr class="header">
+    {% comment %} <th style="width:15%;">Order ID.</th> {% endcomment %}
+    <th style="width:15%;">Image</th>
+    <th style="width:15%;">Product Name</th>
+    {% comment %} <th style="width:15%;">Size</th> {% endcomment %}
+    <th style="width:15%;">Quntity</th>
+    <th style="width:15%;">Price</th>
+    {% comment %} <th style="width:15%;">Cancel</th> {% endcomment %}
+  </tr>
+  {% for i in all_order %}
+  <tr>
+    {% comment %} <td>{{i.Details_id.order_id}}</td> {% endcomment %}
+    <td><img src="{{i.pro_id.p_image.url}}" height="80px" width="80px"></td>
+    <td>{{i.pro_id.p_name}}</td>
+    <td>{{i.qut}}</td>
+    <td>{{i.pro_id.p_price}}</td>
+    {% comment %} <td>{{i.qut}}</td> {% endcomment %}
+    {% comment %} <td><a href="{% url 'Accept' i.id%}"><button type="button" class="b1">Accept</button></a></td> {% endcomment %}
+    {% comment %} <td><a href="{% url 'Cancel' i.id %}"><button type="button" class="b1">Cancel</button></a></td> {% endcomment %}
+  </tr>
+  {% endfor %}
+</table>
+
+<script>
+function myFunction() {
+  var input, filter, table, tr, td, i, txtValue;
+  input = document.getElementById("myInput");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("myTable");
+  tr = table.getElementsByTagName("tr");
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[0];
+    if (td) {
+      txtValue = td.textContent || td.innerText;
+      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
+    }       
+  }
+}
+</script>
+
+</body>
+</html>
+
+
+{% endblock %}

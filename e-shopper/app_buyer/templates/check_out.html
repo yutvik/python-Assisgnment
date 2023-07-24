@@ -1,0 +1,170 @@
+{% extends 'header_footer.html' %} {% block content  %} {% load static %}
+
+<section id="cart_items">
+  <div class="container">
+    <div class="breadcrumbs">
+      <ol class="breadcrumb">
+        <!-- <li><a href="">Home</a></li>
+        <li><a href="">Check out</li> -->
+      </ol>
+    </div>
+    <!--/breadcrums-->
+
+    
+    
+
+    <div class="register-req">
+      <p>
+        Please use Register And Checkout to easily get access to your order
+        history, or use Checkout as Guest
+      </p>
+    </div>
+    <!--/register-req-->
+    <div class="review-payment">
+      <h2>Review & Payment</h2>
+    </div>
+    
+    <div class="table-responsive cart_info">
+      <table class="table table-condensed">
+        <thead>
+          <tr class="cart_menu">
+            <td class="image">Item</td>
+            <td class="description"></td>
+            <td class="price">Price</td>
+            <td class="quantity">Quantity </td>
+            <td class="total">Total</td>
+            
+            </td>
+            <td></td>
+          </tr>
+        </thead>
+        {% csrf_token %}
+        <tbody>
+          {% for i in all_cart %}
+          {{msg}}
+          <tr>
+            <td class="cart_product">
+              <img src="{{ i.pro_id.p_image.url }}" alt="" height="50px" width="50px" />
+            </td>
+            <td class="cart_description">
+              <h4>{{i.pro_id.P_name}}</h4>
+              <p>Web ID: 1089772</p>
+            </td>
+            <td class="cart_price">
+              <p>{{i.pro_id.p_price}}</p>
+            </td>
+            <td class="cart_quantity">
+              <div class="cart_quantity_button">
+                <!-- <a class="cart_quantity_up" href=""> + </a> -->
+                <input class="cart_quantity_input" type="text" name="quantity" value="{{i.qut}}" autocomplete="off"
+                  size="2" />
+                <!-- <a class="cart_quantity_down" href=""> - </a> -->
+              </div>
+            </td>
+            <td class="cart_total">
+              <p class="cart_total_price">₹ {{i.total}}</p>
+            </td>
+            <td class="cart_delete">
+              <a class="cart_quantity_delete" href=""><i class="fa fa-times"></i></a>
+            </td>
+          </tr>
+          {% endfor %}
+          <td colspan="3">&nbsp;</td>
+          <td colspan="2">
+            <table class="table table-condensed total-result">
+              <tr>
+                <td>Cart Sub Total</td>
+                <td>₹ {{final_total}}</td>
+              </tr>
+              {% comment %} <tr>
+                <td>Exo Tax</td>
+                <td>₹ 2</td>
+              </tr> {% endcomment %}
+              <tr class="shipping-cost">
+                <td>Shipping Cost</td>
+                <td>Free</td>
+              </tr>
+              <tr>
+                <td>Total</td>
+    
+                <td><span>₹{{final_total}}</span></td>
+                
+              </tr>
+              <tr>
+                {% comment %} <td><button type="button" class="btn" id="pay-btn">Payment</button></td> {% endcomment %}
+              </tr>
+            </table>
+          </td>
+          </tr>
+        </tbody>
+        
+      </table>
+
+    </div>
+    <div class="shopper-informations">
+      <div class="row">
+        
+        <form action="{% url 'checkout' %}" method="post">
+        {% csrf_token %}
+        <div class="col-sm-6">
+          <div class="shopper-info">
+            <p>Shopper Information</p>
+            <div class="form-one">
+            
+                <input type="text" name="fname" placeholder="FirstName *" />
+                <input type="text"  name="mname" placeholder="MiddleName" />
+                <input type="text" name="lname" placeholder="LastName *" />
+                <input type="text" name="Address" placeholder="Address " />
+                <input type="text" name="postel" placeholder="postelcode " />
+                <input type="text" name="state" placeholder="State" />
+                <input type="text" name="Phone" placeholder="PhoneNumber" />
+            
+              </div>
+              {% comment %} <div class="form-two">
+                <form>
+                  <input type="text" name="zcode" placeholder="Zip / Postal Code *" />
+                  <select>
+                    <option>-- Country --</option>
+                  <option>United States</option>
+                  <option>Bangladesh</option>
+                  <option>UK</option>
+                  <option>India</option>
+                  <option>Pakistan</option>
+                  <option></option>
+                  <option>Canada</option>
+                  <option>Dubai</option>
+                </select>
+                <select>
+                  <option>-- State / Province / Region --</option>
+                  <option>United States</option>
+                  <option>Bangladesh</option>
+                  <option>UK</option>
+                  <option>India</option>
+                  <option>Pakistan</option>
+                  <option>Ucrane</option>
+                  <option>Canada</option>
+                  <option>Dubai</option>
+                </select>
+            
+                <input type="text" placeholder="Mobile Phone" />
+            
+              </form>
+            </div> {% endcomment %}
+            <a class="btn btn-primary" href="{% url 'shop_product' %}">Get Quotes</a>
+            {% comment %} <a botton type=""  href="" class="btn btn-primary" href="">Continue</a> {% endcomment %}
+            <button class="btn btn-primary" type="submit" >Continue</button>
+          </div>
+        </div>
+      </form>
+        
+     
+      </div>
+    </div>
+    
+    
+
+  
+<!--/#cart_items-->
+
+
+{% endblock %}

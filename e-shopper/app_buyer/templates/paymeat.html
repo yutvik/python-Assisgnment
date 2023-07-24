@@ -1,0 +1,101 @@
+  {% extends 'header_footer.html' %} {% block content  %} {% load static %}
+  {% for i in all_cart %}
+          {{msg}}
+          <tr>
+            <td class="cart_product">
+              <img src="{{ i.pro_id.p_image.url }}" alt="" height="50px" width="50px" />
+            </td>
+            <td class="cart_description">
+              <h4>{{i.pro_id.P_name}}</h4>
+              <p>Web ID: 1089772</p>
+            </td>
+            <td class="cart_price">
+              <p>{{i.pro_id.p_price}}</p>
+            </td>
+            <td class="cart_quantity">
+              <div class="cart_quantity_button">
+                <!-- <a class="cart_quantity_up" href=""> + </a> -->
+                <input class="cart_quantity_input" type="text" name="quantity" value="{{i.qut}}" autocomplete="off"
+                  size="2" />
+                <!-- <a class="cart_quantity_down" href=""> - </a> -->
+              </div>
+            </td>
+            <td class="cart_total">
+              <p class="cart_total_price">₹ {{i.total}}</p>
+            </td>
+            <td class="cart_delete">
+              <a class="cart_quantity_delete" href=""><i class="fa fa-times"></i></a>
+            </td>
+          </tr>
+          {% endfor %}
+          <td colspan="3">&nbsp;</td>
+          <td colspan="2">
+            <table class="table table-condensed total-result">
+              <tr>
+                <td>Cart Sub Total</td>
+                <td>₹ {{final_total}}</td>
+              </tr>
+              {% comment %} <tr>
+                <td>Exo Tax</td>
+                <td>₹ 2</td>
+              </tr> {% endcomment %}
+              <tr class="shipping-cost">
+                <td>Shipping Cost</td>
+                <td>Free</td>
+              </tr>
+              <tr>
+                <td>Total</td>
+    
+                <td><span>₹{{final_total}}</span></td>
+                
+              </tr>
+              <tr>
+                <td><button type="button" class="btn" id="pay-btn">Payment</button></td>
+              </tr>
+              <div class="payment-options">
+      <span>
+        <!-- <label><input type="checkbox" /> Direct Bank Transfer</label> -->
+      </span>
+      <span>
+        <!-- <label><input type="checkbox" /> Check Payment</label> -->
+      </span>
+      <span>
+        <!-- <label><input type="checkbox" /> Paypal</label> -->
+      </span>
+    </div>
+  </div>
+</section>
+  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+  <script>
+    var options = {
+       
+      // Enter the Key ID generated from the Dashboard
+      key: 'rzp_test_uFiVej0FjitADX',
+       
+      // Amount is in currency subunits.
+      // Default currency is INR. Hence,
+      // 50000 refers to 50000 paise
+      amount: "{{final_total}}"*100,
+      currency: "INR",
+       
+      // Your/store name.
+      name: "Dj Razorpay",
+       
+      // Pass the `id` obtained in the response of Step 1
+      order_id: "{{ order_id }}",
+      callback_url: "{{ callback_url }}",
+    };
+     
+    // initialise razorpay with the options.
+    var rzp1 = new Razorpay(options);
+     
+    // add event listener to the payment button.
+    document.getElementById("pay-btn").onclick = function (e) {
+      rzp1.open();
+      e.preventDefault();
+    };
+  </script>
+            </table>
+          </td>
+          </tr>
+          {% endblock %}

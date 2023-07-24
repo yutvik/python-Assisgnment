@@ -1,0 +1,88 @@
+{% extends 'seller_header_footer.html' %} {% block content %} {% load static %}
+
+{% comment %} <!DOCTYPE html> {% endcomment %}
+<html>
+
+<head>
+    <style>
+        table {
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        td,
+        th {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+
+        tr:nth-child(even) {
+            background-color: #dddddd;
+        }
+    </style>
+</head>
+
+
+<body>
+    <h2>Live Product</h2>
+
+    <table>
+        <p>{{msg}}</p>   
+        <tr>
+            <th>I.D</th>
+            <th>Name</th>
+            <th>Image</th>
+            <th>Quantity</th>
+            <th>Price</th>
+            <th>Dic</th>
+            <th>Update</th>
+            <th>Delete</th>
+
+
+        </tr>
+        {% for i in all_data %}
+        <tr>
+            <td>{{i.p_name}}</td>
+            <td><img src="{{i.p_image.url}}" alt="" height="50px" width="50px"></td>
+            <td>{{i.p_price}}</td>
+            <td>{{i.p_qut}}</td>
+            {% comment %} <td>{{i.p_price}}</td> {% endcomment %}
+            <td>{{i.p_dec}}</td>
+            <td><a href="{% url 'listing_update' i.id %}">Update</a></td>
+            <td><a href="{% url 'delete' i.id %}">Delete</a></td>
+        </tr>
+        {% endfor%}
+        <!-- <tr>
+            <td>Centro comercial Moctezuma</td>
+            <td>Francisco Chang</td>
+            <td>Mexico</td>
+        </tr>
+        <tr>
+            <td>Ernst Handel</td>
+            <td>Roland Mendel</td>
+            <td>Austria</td>
+        </tr>
+        <tr>
+            <td>Island Trading</td>
+            <td>Helen Bennett</td>
+            <td>UK</td>
+        </tr>
+        <tr>
+            <td>Laughing Bacchus Winecellars</td>
+            <td>Yoshi Tannamuri</td>
+            <td>Canada</td>
+        </tr>
+        <tr>
+            <td>Magazzini Alimentari Riuniti</td>
+            <td>Giovanni Rovelli</td>
+            <td>Italy</td>
+        </tr>-->
+    </table> 
+
+</body>
+
+</html>
+
+{% endblock %}
